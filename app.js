@@ -57,7 +57,7 @@ app.directive('quiz', function(quizFactory) {
 						 //document.body.appendChild(canvasPhoto);
 						 var convertedPhoto = canvasPhoto.toDataURL('image/png');
 						 $('#download-photo').attr('href',convertedPhoto);
-						 thePhoto.html('<img src="'+convertedPhoto+'" />');
+						 thePhoto.html('<img src="'+convertedPhoto+'" style="max-width: 100%;" />');
 					 }
 				 });
 			}
