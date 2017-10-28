@@ -1,0 +1,62 @@
+<div class="quiz-area" ng-show="inProgress">
+	<div ng-show="!quizOver">
+		<h4 id="question">{{question}}</h4>
+		<ul id="options" class="list-unstyled">
+			<li ng-repeat="option in options">
+				<label>
+					<input type="radio" name="answer" value="{{option}}">
+					{{option}}
+				</label>
+			</li>
+		</ul>
+		<button ng-click="checkAnswer()" ng-show="answerMode" class="btn btn-primary">Submit</button>
+
+		<div ng-show="!answerMode">
+			<button ng-click="nextQuestion()" class="next-question btn btn-default mb-2">Next</button>
+			<div ng-show="correctAns" class="alert alert-success">That is correct!</div>
+			<div ng-show="!correctAns"  class="alert alert-danger">Sorry, that is an incorrect answer.</div>
+		</div>
+	</div>
+
+	<div class="photo card text-center" ng-show="showPhoto">
+		<div class="thePhoto">
+		  <div class="card-img-top" alt="Edison">
+				<img id="snap" alt="Edison" style="max-width:100%">
+				<img src="edison.png" alt="Edison" style="max-width:100%; position: absolute;top: 0;left: 0;">
+			</div>
+		  <div class="card-body">
+		    <h5 class="card-title">Card title</h5>
+		  </div>
+		</div>
+		  <div class="card-footer">
+		    <a href="#" class="btn btn-primary">Submit Your Idea</a>
+				<a href="#" id="download-photo" download="selfie.png" class="btn btn-default" title="Save Photo">Download</a>
+		  </div>
+	</div>
+
+	<div ng-show="quizOver && !showPhoto">
+		<div ng-show="score >= '2'">
+			<h2>Congratulations</h2>
+			<p class="lead">Please put the Ness Email Id</p>
+			<form>
+			<input type="email" class="form-control"/><br/>
+			<button ng-click="submitEmail()" class="btn btn-primary">Show me the Edison in me</button>
+			</form>
+
+		</div>
+		<div ng-show="score < '2'">
+		<h2>Challenge over</h2>
+		<p>{{score}}</p>
+		<button ng-click="reset()" class="btn btn-default">Play again</button>
+		</div>
+	</div>
+
+	<!--<div id="score">
+		Score: {{score}}
+	</div>-->
+</div>
+
+<div class="intro" ng-show="!inProgress">
+	<p class="lead">You have answer a few question and win the challenge to see the Edison in you.</p>
+	<button id="startQuiz" ng-click="start()" class="btn btn-primary">Start the Challenge</button>
+</div>
