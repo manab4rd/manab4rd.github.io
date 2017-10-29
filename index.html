@@ -68,7 +68,7 @@ filter: grayscale(0%);    background-position: center;
          || navigator.userAgent.match(/BlackBerry/i)
          || navigator.userAgent.match(/Windows Phone/i)
          ){
-            canvas.width = ($('#video').height()*2)/3;
+            canvas.width = ($('#video').height()*2)/3 + 50;
             $('#video').attr('width',$('#video').width());
           }
          else {
