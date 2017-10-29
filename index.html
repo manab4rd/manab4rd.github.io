@@ -15,34 +15,10 @@
   <script src="app.js"></script>
   <script src="build/tracking-min.js"></script>
   <script src="build/data/face-min.js"></script>
-  <style>
-  #video, #canvas {
-    /*margin-left: 350px;
-    margin-top: 10px;*/
-    position: absolute;
-    mask:url('#imask');
-    -webkit-mask:url('edison-mask.png');
-    margin:0 auto;
-    width: 350px;
-    height: 257px;
-    max-width: 100%;
-    right: 0;
-    left: 0;
-  }
-  /*#snap{filter: grayscale(90%);
--webkit-filter: grayscale(90%);
--moz-filter: grayscale(90%);
--ms-filter: grayscale(90%);
--o-filter: grayscale(90%);
-filter: grayscale(0%);    background-position: center;
-    background-size: 90%;}*/
-.photo.card{width: 350px; margin: 0 auto;}
-/*.photo.card .card-body{font-family: 'Gloria Hallelujah', cursive;}*/
-  </style>
+
 </head>
 
 <body>
-  <div class="container">
     <script>
       window.onload = function() {
         var video = document.getElementById('video');
@@ -136,24 +112,6 @@ filter: grayscale(0%);    background-position: center;
 
       };
     </script>
-
-
-	<div class="row justify-content-md-center">
-		<div class="col-12 col-md-6 con-md-offset-3">
-      <p class="display-4">See the Edison in you</p>
-      <div class="camerapanel">
-
-        <div class="clear"></div>
-      </div>
-      <div class="quizpanel" style="display:none;">
-  		  <hr/>
-
-  			<quiz/>
-      </div>
-		</div>
-	 </div>
-
-  </div>
   <video id="video" preload autoplay loop muted></video>
   <canvas id="canvas"></canvas>
 </body>
