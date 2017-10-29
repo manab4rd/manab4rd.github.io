@@ -16,20 +16,12 @@
   <script src="build/tracking-min.js"></script>
   <script src="build/data/face-min.js"></script>
   <style>
-  #video {
+  #video, #canvas {
     /*margin-left: 350px;
     margin-top: 10px;*/
     position: absolute;
     mask:url('#imask');
     -webkit-mask:url('edison-mask.png');
-    margin:0 auto;
-  }
-  #canvas {
-    /*margin-left: 350px;
-    margin-top: 10px;*/
-    position: absolute;
-    /*mask:url('#imask');
-    -webkit-mask:url('edison-mask.png');*/
     margin:0 auto;
     width: 350px;
     height: 257px;
@@ -61,14 +53,15 @@ filter: grayscale(0%);    background-position: center;
         tracker.setInitialScale(4);
         tracker.setStepSize(2);
         tracker.setEdgesDensity(0.1);
-        alert($('#video').width() + "///" + $('#video').height());
-        alert($('#canvas').width() + "///" + $('#canvas').height());
+        console.log("Video -- "+$('#video').width() + "/"+ $('#video').height());
+        console.log("Canvas -- "+canvas.width + "/"+ canvas.height);
         canvas.width = $('#video').width();
         canvas.height = $('#video').height();
-        alert($('#canvas').width() + "///" + $('#canvas').height());
+        console.log("Canvas -- "+canvas.width + "/"+ canvas.height);
         tracking.track('#video', tracker, { camera: true });
 
         tracker.on('track', function(event) {
+
           context.clearRect(0, 0, canvas.width, canvas.height);
 
           event.data.forEach(function(rect) {
@@ -86,8 +79,8 @@ filter: grayscale(0%);    background-position: center;
               //var stopping = new stopTrack();
               $('.quizpanel').show();
               video.pause();
-              var snap = new takePhoto(canvas.width, canvas.height);
-              console.log(snap);
+              var snap = new takePhoto(300, 150);
+              //console.log(snap);
               clickcount ++;
             }
           });
@@ -150,7 +143,8 @@ filter: grayscale(0%);    background-position: center;
 		<div class="col-12 col-md-6 con-md-offset-3">
       <p class="display-4">See the Edison in you</p>
       <div class="camerapanel">
-
+        <video id="video" preload autoplay loop muted></video>
+        <canvas id="canvas"></canvas>
         <div class="clear"></div>
       </div>
       <div class="quizpanel" style="display:none;">
@@ -162,8 +156,6 @@ filter: grayscale(0%);    background-position: center;
 	 </div>
 
   </div>
-  <video id="video" preload autoplay loop muted></video>
-  <canvas id="canvas"></canvas>
 </body>
 
 </html>
