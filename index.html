@@ -79,7 +79,7 @@ filter: grayscale(0%);    background-position: center;
               //var stopping = new stopTrack();
               $('.quizpanel').show();
               video.pause();
-              var snap = new takePhoto(300, 150);
+              var snap = new takePhoto(canvas.width + 20, canvas.height+10);
               //console.log(snap);
               clickcount ++;
             }
@@ -88,7 +88,7 @@ filter: grayscale(0%);    background-position: center;
 
         var takePhoto = function(w,h){
 
-          var hidden_canvas = document.querySelector('canvas'),
+          var hidden_canvas = document.querySelector('#canvas'),
              context = hidden_canvas.getContext('2d');
 
          var width = w,
@@ -99,7 +99,6 @@ filter: grayscale(0%);    background-position: center;
            // Setup a canvas with the same dimensions as the video.
            hidden_canvas.width = width;
            hidden_canvas.height = height;
-           alert(width + "///" + height);
            // Make a copy of the current frame in the video on the canvas.
            context.drawImage(video, 0, 0, width, height);
 
