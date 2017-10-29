@@ -96,7 +96,7 @@ filter: grayscale(0%);    background-position: center;
            // Setup a canvas with the same dimensions as the video.
            hidden_canvas.width = width;
            hidden_canvas.height = height;
-
+           alert(width + "///" + height);
            // Make a copy of the current frame in the video on the canvas.
            context.drawImage(video, 0, 0, width, height);
 
