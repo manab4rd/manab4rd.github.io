@@ -53,12 +53,12 @@ filter: grayscale(0%);    background-position: center;
         tracker.setInitialScale(4);
         tracker.setStepSize(2);
         tracker.setEdgesDensity(0.1);
-
+        canvas.width = $('#video').width();
+        canvas.height = $('#video').height();
 
         tracking.track('#video', tracker, { camera: true });
 
         tracker.on('track', function(event) {
-          canvas.height = 257;
           context.clearRect(0, 0, canvas.width, canvas.height);
 
           event.data.forEach(function(rect) {
