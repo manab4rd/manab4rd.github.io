@@ -91,7 +91,7 @@ filter: grayscale(0%);    background-position: center;
             context.fillStyle = "#fff";
             context.fillText('x: ' + rect.x + 'px', rect.x, rect.y + 11);
             context.fillText('y: ' + rect.y + 'px', rect.x, rect.y + 22);
-            var calccenter = $('#video').width()/2 - rect.width/2;
+            var calccenter = $('#video').width()/2 - 20;
             context.fillText('xy: ' + calccenter + 'px', rect.x, rect.y + 33);
             //console.log((calccenter-5) +"/"+ (calccenter+5));
             if(rect.x >= (calccenter) && rect.x <= (calccenter+10) && rect.y >= 35 && rect.y <= 45 && rect.width < 130 && clickcount == 1){
