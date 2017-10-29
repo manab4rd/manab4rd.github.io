@@ -58,7 +58,6 @@ filter: grayscale(0%);    background-position: center;
         tracking.track('#video', tracker, { camera: true });
 
         tracker.on('track', function(event) {
-          canvas.width = 350;
           canvas.height = 257;
           context.clearRect(0, 0, canvas.width, canvas.height);
 
