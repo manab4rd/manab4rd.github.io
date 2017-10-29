@@ -54,7 +54,7 @@ app.directive('quiz', function(quizFactory, $http) {
 					scope.showPhoto = true;
 					$http({
 					    method: 'GET',
-					    url: 'http://trikoninfosystems.com/edison-in-you/store.php?email='+scope.email
+					    url: '//trikoninfosystems.com/edison-in-you/store.php?email='+scope.email
 					}).success(function () {
 						console.log("done done");
 					});
