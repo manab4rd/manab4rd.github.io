@@ -23,8 +23,10 @@
     mask:url('#imask');
     -webkit-mask:url('edison-mask.png');
     margin:0 auto;
-    width: 350px;
-    height: 257px;
+    /*width: 350px;
+    height: 257px;*/
+    width: 100vw;
+    height: 100vh;
     max-width: 100%;
     right: 0;
     left: 0;
@@ -64,8 +66,8 @@ filter: grayscale(0%);    background-position: center;
          || navigator.userAgent.match(/BlackBerry/i)
          || navigator.userAgent.match(/Windows Phone/i)
          ){
-            canvas.width = $('#video').height();
-            $('#video').css('width','100vw');
+            //canvas.width = $('#video').height();
+            //$('#video').css('width','100vw');
           }
          else {
             canvas.width = $('#video').width();
