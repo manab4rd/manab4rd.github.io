@@ -27,9 +27,7 @@
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
     margin:0 auto;
-    /*width: 350px;
-    height: 257px;*/
-    width: 100vw;
+    width: 350px;
     height: 257px;
     max-width: 100%;
     right: 0;
@@ -70,9 +68,7 @@ filter: grayscale(0%);    background-position: center;
          || navigator.userAgent.match(/BlackBerry/i)
          || navigator.userAgent.match(/Windows Phone/i)
          ){
-            //canvas.width = $('#video').height();
-            //$('#video').css('width','100vw');
-            canvas.width = $('#video').width();
+            canvas.width = ($('#video').height()*2)/3;
           }
          else {
             canvas.width = $('#video').width();
@@ -87,14 +83,15 @@ filter: grayscale(0%);    background-position: center;
           context.clearRect(0, 0, canvas.width, canvas.height);
 
           event.data.forEach(function(rect) {
-            context.strokeStyle = '#ff8800';
-            context.strokeRect(rect.x, rect.y, rect.width, rect.height);
-            context.font = '11px Helvetica';
-            context.fillStyle = "#fff";
-            context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);
-            context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22);
+            // context.strokeStyle = '#ff8800';
+            // context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+            // context.font = '11px Helvetica';
+            // context.fillStyle = "#fff";
+            // context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);
+            // context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22);
             var calccenter = $('#video').width()/2 - rect.width/2;
-            if(rect.x >= (calccenter-5) && rect.x <= (calccenter+5) && rect.y >= 35 && rect.y <= 45 && rect.width < 140 && clickcount == 1){
+            //console.log((calccenter-5) +"/"+ (calccenter+5));
+            if(rect.x >= (calccenter) && rect.x <= (calccenter+10) && rect.y >= 35 && rect.y <= 45 && rect.width < 130 && clickcount == 1){
               //console.log('Hit');
               //var video = document.querySelector('#video');
               $('.camerapanel').hide();
