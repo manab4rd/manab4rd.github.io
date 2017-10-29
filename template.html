@@ -18,14 +18,14 @@
 		</div>
 	</div>
 
-	<div class="photo card text-center" ng-show="showPhoto" style="max-width: 100%;">
-		<div class="thePhoto">
+	<div class="photo card text-center" ng-show="showPhoto">
+		<div class="thePhoto" style="background:#ffffff;">
 		  <div class="card-img-top" alt="Edison">
-				<img id="snap" alt="Edison" style="max-width:100%">
-				<img src="edison.png" alt="Edison" style="max-width:100%; position: absolute;top: 0;left: 0;">
+				<img id="snap" alt="Edison" style="max-width:100%; width:20rem" class="m-3">
+				<img src="edison.png" alt="Edison" style="max-width:100%; position: absolute;top: 0;left: 0; width:20rem" class="m-3">
 			</div>
 		  <div class="card-body">
-		    <h5 class="card-title">Card title</h5>
+		    <h5 class="card-title">{{empName}}</h5>
 		  </div>
 		</div>
 		  <div class="card-footer">
@@ -39,10 +39,10 @@
 			<h2>Congratulations</h2>
 			<p class="lead">Please put the Ness Email Id</p>
 			<form>
-			<input type="email" class="form-control"/><br/>
+			<input type="email" class="form-control" ng-model="email"/><br/>
 			<button ng-click="submitEmail()" class="btn btn-primary">Show me the Edison in me</button>
 			</form>
-
+			<p style="color:red">{{emailstatus}}</p>
 		</div>
 		<div ng-show="score < '2'">
 		<h2>Challenge over</h2>

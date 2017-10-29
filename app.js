@@ -27,6 +27,7 @@ app.directive('quiz', function(quizFactory) {
 					scope.answerMode = true;
 				} else {
 					scope.quizOver = true;
+
 				}
 			};
 
@@ -46,8 +47,16 @@ app.directive('quiz', function(quizFactory) {
 			};
 
 			scope.submitEmail = function(){
-				scope.makePhoto();
-				scope.showPhoto = true;
+				if (scope.email.indexOf('@ness.com') > -1) {
+					var employeeName = scope.email.split('.')
+					scope.empName = (employeeName[0]);
+					scope.makePhoto();
+					scope.showPhoto = true;
+				}else{
+					scope.emailstatus = "Please provide a valid Ness Email-Id"
+					console.log("Need correct email");
+				}
+
 			};
 
 			scope.makePhoto = function(){
