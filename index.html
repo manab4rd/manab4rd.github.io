@@ -58,8 +58,8 @@ filter: grayscale(0%);    background-position: center;
         tracker.setInitialScale(4);
         tracker.setStepSize(2);
         tracker.setEdgesDensity(0.1);
-        console.log("Video -- "+$('#video').width() + "/"+ $('#video').height());
-        console.log("Canvas -- "+canvas.width + "/"+ canvas.height);
+        //console.log("Video -- "+$('#video').width() + "/"+ $('#video').height());
+        //console.log("Canvas -- "+canvas.width + "/"+ canvas.height);
         if( navigator.userAgent.match(/Android/i)
          || navigator.userAgent.match(/webOS/i)
          || navigator.userAgent.match(/iPhone/i)
@@ -69,13 +69,15 @@ filter: grayscale(0%);    background-position: center;
          || navigator.userAgent.match(/Windows Phone/i)
          ){
             canvas.width = ($('#video').height()*2)/3;
+            $('#video').attr('width',$('#video').width());
           }
          else {
             canvas.width = $('#video').width();
+            $('#video').attr('width',$('#video').width());
           }
-
+        $('#video').attr('height',$('#video').height());
         canvas.height = $('#video').height();
-        console.log("Canvas -- "+canvas.width + "/"+ canvas.height);
+        //console.log("Canvas -- "+canvas.width + "/"+ canvas.height);
         tracking.track('#video', tracker, { camera: true });
 
         tracker.on('track', function(event) {
