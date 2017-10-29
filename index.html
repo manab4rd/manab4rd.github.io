@@ -55,7 +55,20 @@ filter: grayscale(0%);    background-position: center;
         tracker.setEdgesDensity(0.1);
         console.log("Video -- "+$('#video').width() + "/"+ $('#video').height());
         console.log("Canvas -- "+canvas.width + "/"+ canvas.height);
-        canvas.width = $('#video').width();
+        if( navigator.userAgent.match(/Android/i)
+         || navigator.userAgent.match(/webOS/i)
+         || navigator.userAgent.match(/iPhone/i)
+         || navigator.userAgent.match(/iPad/i)
+         || navigator.userAgent.match(/iPod/i)
+         || navigator.userAgent.match(/BlackBerry/i)
+         || navigator.userAgent.match(/Windows Phone/i)
+         ){
+            canvas.width = 300;
+          }
+         else {
+            canvas.width = $('#video').width();
+          }
+
         canvas.height = $('#video').height();
         console.log("Canvas -- "+canvas.width + "/"+ canvas.height);
         tracking.track('#video', tracker, { camera: true });
@@ -90,7 +103,6 @@ filter: grayscale(0%);    background-position: center;
 
           var hidden_canvas = document.querySelector('#canvas'),
              context = hidden_canvas.getContext('2d');
-             alert($('#canvas').width());
          var width = w,
              height = h;
 
