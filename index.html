@@ -65,6 +65,7 @@ filter: grayscale(0%);    background-position: center;
          || navigator.userAgent.match(/Windows Phone/i)
          ){
             canvas.width = $('#video').height();
+            $('#video').css('width':'100vw');
           }
          else {
             canvas.width = $('#video').width();
