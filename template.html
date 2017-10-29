@@ -39,7 +39,8 @@
 			<h2>Congratulations</h2>
 			<p class="lead">Please put the Ness Email Id</p>
 			<form>
-			<input type="email" class="form-control" ng-model="email"/><br/>
+				<input name="email" type="email" class="form-control" ng-model="email"/>
+				<input name="data_url" id="inputforjson" type="hidden" class="form-control"/>
 			<button ng-click="submitEmail()" class="btn btn-primary">Show me the Edison in me</button>
 			</form>
 			<p style="color:red">{{emailstatus}}</p>

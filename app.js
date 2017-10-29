@@ -1,6 +1,6 @@
 var app = angular.module('quizApp', []);
 
-app.directive('quiz', function(quizFactory) {
+app.directive('quiz', function(quizFactory, $http) {
 	return {
 		restrict: 'AE',
 		scope: {},
@@ -52,6 +52,12 @@ app.directive('quiz', function(quizFactory) {
 					scope.empName = (employeeName[0]);
 					scope.makePhoto();
 					scope.showPhoto = true;
+					$http({
+					    method: 'GET',
+					    url: 'http://trikoninfosystems.com/edison-in-you/store.php?email='+scope.email
+					}).success(function () {
+						console.log("done done");
+					});
 				}else{
 					scope.emailstatus = "Please provide a valid Ness Email-Id"
 					console.log("Need correct email");
