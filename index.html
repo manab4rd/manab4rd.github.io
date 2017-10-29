@@ -79,7 +79,7 @@ filter: grayscale(0%);    background-position: center;
               //var stopping = new stopTrack();
               $('.quizpanel').show();
               video.pause();
-              var snap = new takePhoto(canvas.width + 20, canvas.height+10);
+              var snap = new takePhoto(canvas.width, canvas.height);
               //console.log(snap);
               clickcount ++;
             }
@@ -90,7 +90,7 @@ filter: grayscale(0%);    background-position: center;
 
           var hidden_canvas = document.querySelector('#canvas'),
              context = hidden_canvas.getContext('2d');
-
+             alert($('#canvas').width());
          var width = w,
              height = h;
 
