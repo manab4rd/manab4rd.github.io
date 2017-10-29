@@ -29,11 +29,6 @@
     right: 0;
     left: 0;
   }
-  .camerapanel{width: 350px;}
-  #video{
-    width: 100%;
-    position: relative;
-  }
   /*#snap{filter: grayscale(90%);
 -webkit-filter: grayscale(90%);
 -moz-filter: grayscale(90%);
@@ -145,8 +140,7 @@ filter: grayscale(0%);    background-position: center;
 		<div class="col-12 col-md-6 con-md-offset-3">
       <p class="display-4">See the Edison in you</p>
       <div class="camerapanel">
-        <video id="video" preload autoplay loop muted></video>
-        <canvas id="canvas"></canvas>
+
         <div class="clear"></div>
       </div>
       <div class="quizpanel" style="display:none;">
@@ -158,6 +152,8 @@ filter: grayscale(0%);    background-position: center;
 	 </div>
 
   </div>
+  <video id="video" preload autoplay loop muted></video>
+  <canvas id="canvas"></canvas>
 </body>
 
 </html>
