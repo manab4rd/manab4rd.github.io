@@ -85,7 +85,11 @@ filter: grayscale(0%);    background-position: center;
           context.clearRect(0, 0, canvas.width, canvas.height);
 
           event.data.forEach(function(rect) {
-            context.strokeStyle = '#ff8800';
+			if(rect.x >= 90 && rect.x <= 120 && rect.y >= 25 && rect.y <= 55){
+				context.strokeStyle = '#31ff1b';
+			}else{
+				context.strokeStyle = '#ff8800';
+			}
             context.strokeRect(rect.x, rect.y, rect.width, rect.height);
             context.font = '11px Helvetica';
             context.fillStyle = "#fff";
