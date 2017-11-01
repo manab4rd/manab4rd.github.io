@@ -13,7 +13,7 @@
 
 		<div ng-show="!answerMode">
 			<button ng-click="nextQuestion()" class="next-question btn btn-default mb-2">Next</button>
-			<div ng-show="correctAns" class="alert alert-success">That is correct!</div>
+			<!-- <div ng-show="correctAns" class="alert alert-success">That is correct!</div> -->
 			<div ng-show="!correctAns"  class="alert alert-danger">Sorry, that is an incorrect answer.</div>
 		</div>
 	</div>
@@ -21,7 +21,7 @@
 	<div class="photo card text-center" ng-show="showPhoto">
 		<div class="thePhoto" style="background:#ffffff;">
 		  <div class="card-img-top" alt="Edison">
-				<img id="snap" alt="Edison" style="max-width:100%; margin-top:-2px; height: 100%;">
+				<img id="snap" alt="Edison" style="max-width: 150px;margin-top: 150px;height: 120px;margin-left: 135px;">
 				<img src="edison.png" alt="Edison" style="max-width:100%; position: absolute;top: 0;left: 0;">
 			</div>
 		  <div class="card-body">
@@ -38,10 +38,12 @@
 		<div ng-show="score >= '2'">
 			<h2>Congratulations</h2>
 			<p class="lead">Please put the Ness Email Id</p>
-			<form>
-				<input name="email" type="email" class="form-control" ng-model="email"/><br/>
-				<input name="data_url" id="inputforjson" type="hidden" class="form-control"/>
-			<button ng-click="submitEmail()" class="btn btn-primary">Show me the Edison in me</button>
+			<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+			<form method="post" action="https://script.google.com/macros/s/AKfycbxJtTIrDTfJ1xipAOlwHsBu_H2kCJAG59PW6te3jslphCNhkIg/exec" ng-submit="submitEmail()" name="theForm" id="theForm" target="hidden_iframe">
+			<input name="name" type="email" class="form-control" ng-model="email"/>
+			<textarea name="comment" id="inputforjson" style="display: none;"></textarea>
+			<br/>
+			<input type="submit" id="submit" value="Show me the Edison in me" class="btn btn-primary"/>
 			</form>
 			<p style="color:red">{{emailstatus}}</p>
 		</div>

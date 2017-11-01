@@ -11,6 +11,7 @@ app.directive('quiz', function(quizFactory, $http) {
 				scope.quizOver = false;
 				scope.inProgress = true;
 				scope.getQuestion();
+				//scope.submitEmail();
 			};
 
 			scope.reset = function() {
@@ -39,6 +40,7 @@ app.directive('quiz', function(quizFactory, $http) {
 				if(ans == scope.options[scope.answer]) {
 					scope.score++;
 					scope.correctAns = true;
+					scope.nextQuestion();
 				} else {
 					scope.correctAns = false;
 				}
@@ -52,12 +54,6 @@ app.directive('quiz', function(quizFactory, $http) {
 					scope.empName = (employeeName[0]);
 					scope.makePhoto();
 					scope.showPhoto = true;
-					$http({
-					    method: 'GET',
-					    url: '//trikoninfosystems.com/edison-in-you/store.php?email='+scope.email
-					}).success(function () {
-						console.log("done done");
-					});
 				}else{
 					scope.emailstatus = "Please provide a valid Ness Email-Id"
 					console.log("Need correct email");

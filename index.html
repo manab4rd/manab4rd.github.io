@@ -10,6 +10,7 @@
   <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
   <script src="https://html2canvas.hertzen.com/build/html2canvas.js"></script>
+  <script src="http://jcrop-cdn.tapmodo.com/v2.0.0-RC1/js/Jcrop.js"></script>
 
   <!-- <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet"> -->
   <script src="app.js"></script>
@@ -27,8 +28,8 @@
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
     margin:0 auto;
-    width: 350px;
-    height: 257px;
+    width: 360px;
+    height: 330px;
     max-width: 100%;
     right: 0;
     left: 0;
@@ -40,7 +41,7 @@
 -o-filter: grayscale(90%);
 filter: grayscale(0%);    background-position: center;
     background-size: 90%;}*/
-.photo.card{width: 350px; margin: 0 auto;}
+.photo.card{width: 360px; margin: 0 auto;}
 .list-unstyled li{ margin: 1em 0;}
 /*.photo.card .card-body{font-family: 'Gloria Hallelujah', cursive;}*/
   </style>
@@ -94,7 +95,8 @@ filter: grayscale(0%);    background-position: center;
             //var calccenter = $('#video').width()/2 - 20;
             //context.fillText('xy: ' + calccenter + 'px', rect.x, rect.y + 33);
             //console.log((calccenter-5) +"/"+ (calccenter+5));
-            if(rect.x >= 100 && rect.x <= 110 && rect.y >= 35 && rect.y <= 45 && rect.width < 150 && clickcount == 1){
+
+            if(rect.x >= 90 && rect.x <= 140 && rect.y >= 30 && rect.y <= 50 && clickcount == 1){
               //console.log('Hit');
               //var video = document.querySelector('#video');
               $('.camerapanel').hide();
@@ -102,11 +104,26 @@ filter: grayscale(0%);    background-position: center;
               $('.quizpanel').show();
               video.pause();
               var snap = new takePhoto(canvas.width, canvas.height);
-              //console.log(snap);
+              var crop = new imgCropper(rect.x, rect.y, rect.width, rect.height);
+              console.log(rect.x, rect.y, rect.width, rect.height);
               clickcount ++;
             }
           });
         });
+
+        var imgCropper = function(cx,cy,cw,ch){
+          $('#snap').Jcrop({aspectRatio: 1},function(){
+           var imageObj = $("#snap")[0];
+               var canvas = $("#preview")[0];
+               var context = canvas.getContext("2d");
+               context.drawImage(imageObj, cx+10, cy+10, cw+10, ch+10, 0, 0, 150, 150);
+               var width = cw+10;
+               var height = ch+10;
+
+              var image = document.querySelector('#snap');
+              image.setAttribute('src', canvas.toDataURL('image/png'));
+           });
+        }
 
         var takePhoto = function(w,h){
 
@@ -128,7 +145,7 @@ filter: grayscale(0%);    background-position: center;
            //var image = document.querySelector('#snap');
            //$('#snap').css('background-image', 'url('+ hidden_canvas.toDataURL("image/png")+')');
 
-
+           //for greyscale the dataurl
             var imgPixels = context.getImageData(0, 0, width, height);
 
             for(var y = 0; y < height; y++){
@@ -148,6 +165,21 @@ filter: grayscale(0%);    background-position: center;
            image.setAttribute('src', hidden_canvas.toDataURL('image/png'));
            $('#inputforjson').val(hidden_canvas.toDataURL('image/png'));
 
+
+            // $('#snap').each(function() {
+            //     $(this).load(function() {
+            //       var tracker2 = new tracking.ObjectTracker('face');
+            //       tracker2.setStepSize(1.7);
+            //       tracking.track('#snap', tracker2);
+            //       tracker2.on('track', function(ex) {
+            //         ex.data.forEach(function(rect2) {
+            //           //window.plot(rect2.x, rect2.y, rect2.width, rect2.height);
+            //           console.log(rect2.x, rect2.y, rect2.width, rect2.height);
+            //         });
+            //       });
+            //     });
+            //   });
+
            //var dataurl = hidden_canvas.toDataURL('image/png');
            //return dataurl;
 
@@ -164,17 +196,20 @@ filter: grayscale(0%);    background-position: center;
       <h3>See the Edison in you</h3>
 
       <div class="camerapanel">
-        <p>Please allow the application to access the camera</p>
+        <p ng-hide="inProgress">Please allow the application to access the camera</p>
         <video id="video" preload autoplay loop muted></video>
         <canvas id="canvas"></canvas>
         <div class="clear"></div>
 
       </div>
+      <!-- <img id="snap" alt="Edison" style="max-width:100%; margin-top:-2px; height: 100%;"> -->
+      <canvas id="preview" width="150" height="150" style="display:none;"></canvas>
       <div class="quizpanel" style="display:none;">
   		  <hr/>
 
   			<quiz/>
       </div>
+
 		</div>
 	 </div>
 
