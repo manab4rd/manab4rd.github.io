@@ -10,12 +10,12 @@
   <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
   <script src="https://html2canvas.hertzen.com/build/html2canvas.js"></script>
-  <script src="https://jcrop-cdn.tapmodo.com/v2.0.0-RC1/js/Jcrop.js"></script>
 
   <!-- <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet"> -->
   <script src="app.js"></script>
   <script src="build/tracking-min.js"></script>
   <script src="build/data/face-min.js"></script>
+  <script src="build/Jcrop.js"></script>
   <style>
   #video, #canvas {
     /*margin-left: 350px;
@@ -34,13 +34,6 @@
     right: 0;
     left: 0;
   }
-  /*#snap{filter: grayscale(90%);
--webkit-filter: grayscale(90%);
--moz-filter: grayscale(90%);
--ms-filter: grayscale(90%);
--o-filter: grayscale(90%);
-filter: grayscale(0%);    background-position: center;
-    background-size: 90%;}*/
 .photo.card{width: 360px; margin: 0 auto;}
 .list-unstyled li{ margin: 1em 0;}
 /*.photo.card .card-body{font-family: 'Gloria Hallelujah', cursive;}*/
@@ -92,20 +85,13 @@ filter: grayscale(0%);    background-position: center;
             context.fillStyle = "#fff";
             context.fillText('x: ' + rect.x + 'px', rect.x, rect.y + 11);
             context.fillText('y: ' + rect.y + 'px', rect.x, rect.y + 22);
-            //var calccenter = $('#video').width()/2 - 20;
-            //context.fillText('xy: ' + calccenter + 'px', rect.x, rect.y + 33);
-            //console.log((calccenter-5) +"/"+ (calccenter+5));
 
-            if(rect.x >= 90 && rect.x <= 140 && rect.y >= 30 && rect.y <= 50 && clickcount == 1){
-              //console.log('Hit');
-              //var video = document.querySelector('#video');
+            if(rect.x >= 80 && rect.x <= 140 && rect.y >= 30 && rect.y <= 50 && clickcount == 1){
               $('.camerapanel').hide();
-              //var stopping = new stopTrack();
               $('.quizpanel').show();
               video.pause();
               var snap = new takePhoto(canvas.width, canvas.height);
               var crop = new imgCropper(rect.x, rect.y, rect.width, rect.height);
-              console.log(rect.x, rect.y, rect.width, rect.height);
               clickcount ++;
             }
           });
