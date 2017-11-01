@@ -40,7 +40,7 @@
 			<p class="lead">Please put the Ness Email Id</p>
 			<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 			<form method="post" action="https://script.google.com/macros/s/AKfycbxJtTIrDTfJ1xipAOlwHsBu_H2kCJAG59PW6te3jslphCNhkIg/exec" ng-submit="submitEmail()" name="theForm" id="theForm" target="hidden_iframe">
-			<input name="name" type="email" class="form-control" ng-model="email"/>
+			<input name="name" type="email" class="form-control" ng-model="email" required/>
 			<textarea name="comment" id="inputforjson" style="display: none;"></textarea>
 			<br/>
 			<input type="submit" id="submit" value="Show me the Edison in me" class="btn btn-primary"/>
@@ -49,7 +49,73 @@
 		</div>
 		<div ng-show="score < '2'">
 		<h2>Challenge over</h2>
-		<p>{{score}}</p>
+		<p>{{score}}</p><div class="quiz-area" ng-show="inProgress">
+			<div ng-show="!quizOver">
+				<h4 id="question">{{question}}</h4>
+				<ul id="options" class="list-unstyled">
+					<li ng-repeat="option in options">
+						<label>
+							<input type="radio" name="answer" value="{{option}}">
+							{{option}}
+						</label>
+					</li>
+				</ul>
+				<button ng-click="checkAnswer()" ng-show="answerMode" class="btn btn-primary">Submit</button>
+
+				<div ng-show="!answerMode">
+					<button ng-click="nextQuestion()" class="next-question btn btn-default mb-2">Next</button>
+					<!-- <div ng-show="correctAns" class="alert alert-success">That is correct!</div> -->
+					<div ng-show="!correctAns"  class="alert alert-danger">Sorry, that is an incorrect answer.</div>
+				</div>
+			</div>
+
+			<div class="photo card text-center" ng-show="showPhoto">
+				<div class="thePhoto" style="background:#ffffff;">
+				  <div class="card-img-top" alt="Edison">
+						<img id="snap" alt="Edison" style="max-width: 150px;margin-top: 145px;height: 130px;margin-left: 130px;">
+						<img src="edison.png" alt="Edison" style="max-width:100%; position: absolute;top: 0;left: 0;">
+					</div>
+				  <div class="card-body">
+				    <h5 class="card-title">Thank you {{empName}}, <p class="text-muted small">We see a Edison in You.</p></h5>
+				  </div>
+				</div>
+				  <div class="card-footer">
+				    <a href="#" class="btn btn-primary">Submit Your Idea</a>
+						<a href="#" id="download-photo" download="edison-in-you.png" class="btn btn-default" title="Save Photo">Download</a>
+				  </div>
+			</div>
+
+			<div ng-show="quizOver && !showPhoto">
+				<div ng-show="score >= '2'">
+					<h2>Congratulations</h2>
+					<p class="lead">Please put the Ness Email Id</p>
+					<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+					<form method="post" action="https://script.google.com/macros/s/AKfycbxJtTIrDTfJ1xipAOlwHsBu_H2kCJAG59PW6te3jslphCNhkIg/exec" ng-submit="submitEmail()" name="theForm" id="theForm" target="hidden_iframe">
+					<input name="name" type="email" class="form-control" ng-model="email" required/>
+					<input name="comment" type="text" ng-model="score" style="display: none;"/>
+					<textarea id="inputforjson" style="display: none;"></textarea>
+					<br/>
+					<input type="submit" id="submit" value="Show me the Edison in me" class="btn btn-primary"/>
+					</form>
+					<p style="color:red">{{emailstatus}}</p>
+				</div>
+				<div ng-show="score < '2'">
+				<h2>Challenge over</h2>
+				<p>Your Score : {{score}}</p>
+				<button ng-click="reset()" class="btn btn-default">Play again</button>
+				</div>
+			</div>
+
+			<!--<div id="score">
+				Score: {{score}}
+			</div>-->
+		</div>
+
+		<div class="intro" ng-show="!inProgress">
+			<p class="lead">You have answer a few question and win the challenge to see the Edison in you.</p>
+			<button id="startQuiz" ng-click="start()" class="btn btn-primary">Start the Challenge</button>
+		</div>
+
 		<button ng-click="reset()" class="btn btn-default">Play again</button>
 		</div>
 	</div>
