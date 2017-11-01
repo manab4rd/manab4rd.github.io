@@ -62,17 +62,14 @@
          || navigator.userAgent.match(/BlackBerry/i)
          || navigator.userAgent.match(/Windows Phone/i)
          ){
-            canvas.width = ($('#video').height()*2)/3 + 100;
-            $('#video').attr('width',$('#video').width());
-            $('#video').attr('height',$('#video').height()+50);
+            $('#video').attr('height',$('#video').height()+80);
           }
          else {
-            canvas.width = $('#video').width();
-            $('#video').attr('width',$('#video').width());
             $('#video').attr('height',$('#video').height());
           }
-
-        canvas.height = $('#video').height();
+          canvas.width = $('#video').width();
+          $('#video').attr('width',$('#video').width());
+          canvas.height = $('#video').height();
         //console.log("Canvas -- "+canvas.width + "/"+ canvas.height);
         tracking.track('#video', tracker, { camera: true });
 
@@ -190,7 +187,7 @@
 
       </div>
       <!-- <img id="snap" alt="Edison" style="max-width:100%; margin-top:-2px; height: 100%;"> -->
-      <canvas id="preview" width="150" height="150" style="display:none;"></canvas>
+      <canvas id="preview" width="150" height="150"></canvas>
       <div class="quizpanel" style="display:none;">
   		  <hr/>
 
