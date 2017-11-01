@@ -62,7 +62,7 @@
          || navigator.userAgent.match(/BlackBerry/i)
          || navigator.userAgent.match(/Windows Phone/i)
          ){
-            $('#video').attr('height',$('#video').height()+80);
+            $('#video').attr('height',$('#video').height()+50);
           }
          else {
             $('#video').attr('height',$('#video').height());
@@ -85,7 +85,7 @@
             context.fillText('x: ' + rect.x + 'px', rect.x, rect.y + 11);
             context.fillText('y: ' + rect.y + 'px', rect.x, rect.y + 22);
 
-            if(rect.x >= 70 && rect.x <= 140 && rect.y >= 30 && rect.y <= 50 && clickcount == 1){
+            if(rect.x >= 70 && rect.x <= 130 && rect.y >= 40 && rect.y <= 70 && clickcount == 1){
               $('.camerapanel').hide();
               $('.quizpanel').show();
               video.pause();
