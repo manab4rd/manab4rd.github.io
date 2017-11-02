@@ -17,6 +17,18 @@
   <script src="build/data/face-min.js"></script>
   <script src="build/Jcrop.js"></script>
   <style>
+body {
+	position: relative;
+	width: 100%;
+	background: #333;
+	background-size: cover;
+	background-position: center center;
+	z-index: 1;
+}
+
+body {
+	background-image: url('https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/img/demo-1-bg.jpg');
+}
   #video, #canvas {
     /*margin-left: 350px;
     margin-top: 10px;*/
@@ -34,8 +46,10 @@
     right: 0;
     left: 0;
   }
+  #video{position: relative;}
 .photo.card{width: 360px; margin: 0 auto;}
 .list-unstyled li{ margin: 1em 0;}
+
 /*.photo.card .card-body{font-family: 'Gloria Hallelujah', cursive;}*/
   </style>
 </head>
@@ -62,14 +76,15 @@
          || navigator.userAgent.match(/BlackBerry/i)
          || navigator.userAgent.match(/Windows Phone/i)
          ){
-            $('#video').attr('height',$('#video').height()+50);
+            canvas.width = ($('#video').height()*2)/3 + 50;
+            $('#video').attr('width',$('#video').width());
           }
          else {
-            $('#video').attr('height',$('#video').height());
+            canvas.width = $('#video').width();
+            $('#video').attr('width',$('#video').width());
           }
-          canvas.width = $('#video').width();
-          $('#video').attr('width',$('#video').width());
-          canvas.height = $('#video').height();
+        $('#video').attr('height',$('#video').height());
+        canvas.height = $('#video').height();
         //console.log("Canvas -- "+canvas.width + "/"+ canvas.height);
         tracking.track('#video', tracker, { camera: true });
 
@@ -85,7 +100,7 @@
             context.fillText('x: ' + rect.x + 'px', rect.x, rect.y + 11);
             context.fillText('y: ' + rect.y + 'px', rect.x, rect.y + 22);
 
-            if(rect.x >= 70 && rect.x <= 130 && rect.y >= 40 && rect.y <= 70 && clickcount == 1){
+            if(rect.x >= 70 && rect.x <= 140 && rect.y >= 30 && rect.y <= 50 && clickcount == 1){
               $('.camerapanel').hide();
               $('.quizpanel').show();
               video.pause();
@@ -97,6 +112,7 @@
         });
 
         var imgCropper = function(cx,cy,cw,ch){
+
           $('#snap').Jcrop({aspectRatio: 1},function(){
            var imageObj = $("#snap")[0];
                var canvas = $("#preview")[0];
@@ -108,6 +124,7 @@
               var image = document.querySelector('#snap');
               image.setAttribute('src', canvas.toDataURL('image/png'));
            });
+
         }
 
         var takePhoto = function(w,h){
@@ -150,7 +167,6 @@
            image.setAttribute('src', hidden_canvas.toDataURL('image/png'));
            $('#inputforjson').val(hidden_canvas.toDataURL('image/png'));
 
-
             // $('#snap').each(function() {
             //     $(this).load(function() {
             //       var tracker2 = new tracking.ObjectTracker('face');
@@ -172,12 +188,13 @@
         }
 
       };
+
     </script>
 
 
 	<div class="row justify-content-md-center">
-		<div class="col-12 col-md-6 con-md-offset-3 text-center my-3">
-      <h3>See the Edison in you</h3>
+		<div class="col-12 col-md-6 con-md-offset-3 text-center my-5 py-5 card">
+      <h2>See the Edison in you</h2>
 
       <div class="camerapanel">
         <p ng-hide="inProgress">Please allow the application to access the camera</p>
@@ -185,9 +202,10 @@
         <canvas id="canvas"></canvas>
         <div class="clear"></div>
 
+
       </div>
-      <!-- <img id="snap" alt="Edison" style="max-width:100%; margin-top:-2px; height: 100%;"> -->
-      <canvas id="preview" width="150" height="150" style="display:none;"></canvas>
+       <!-- <img id="snap" alt="Edison" style="max-width:100%; margin-top:-2px; height: 100%;"> -->
+      <canvas id="preview" width="150" style="width:150px;display:none;"></canvas>
       <div class="quizpanel" style="display:none;">
   		  <hr/>
 
@@ -198,6 +216,8 @@
 	 </div>
 
   </div>
+
+
 </body>
 
 </html>
