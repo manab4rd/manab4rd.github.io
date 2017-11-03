@@ -111,7 +111,7 @@
                         video.pause();
                         var snap = new takePhoto(canvas.width, canvas.height);
                         var crop = new imgCropper(rect.x, rect.y, rect.width, rect.height);
-                        var face = new trackFace();
+
                         clickcount ++;
                     }
                 });
@@ -175,6 +175,7 @@
                     image2.setAttribute('src', hidden_canvas.toDataURL('image/png'));
                     console.log(hidden_canvas.toDataURL('image/png'));
                     $('#inputforjson').val(hidden_canvas.toDataURL('image/png'));
+                    var face = new trackFace(image2);
 
                     // $('#snap').each(function() {
                     //     $(this).load(function() {
@@ -214,13 +215,13 @@
 
             </div>
             <script>
-                var trackFace = function(){
-                    var img = document.getElementById('img');
+                var trackFace = function(img){
+                    //var img = document.getElementById('img');
                     var tracker2 = new tracking.ObjectTracker('face');
                     tracker2.setInitialScale(4);
                     tracker2.setStepSize(2);
                     tracker2.setEdgesDensity(0.1);
-                    tracking.track('#img', tracker2);
+                    tracking.track(img, tracker2);
                     tracker2.on('track', function(event) {
                         event.data.forEach(function(rect) {
                             window.plot(rect.x, rect.y, rect.width, rect.height);
