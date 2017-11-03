@@ -221,7 +221,7 @@
                     tracker2.setInitialScale(4);
                     tracker2.setStepSize(2);
                     tracker2.setEdgesDensity(0.1);
-                    tracking.track(img, tracker2);
+                    tracking.track('#img', tracker2);
                     tracker2.on('track', function(event) {
                         event.data.forEach(function(rect) {
                             window.plot(rect.x, rect.y, rect.width, rect.height);
