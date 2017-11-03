@@ -176,9 +176,9 @@
                     console.log(hidden_canvas.toDataURL('image/png'));
                     $('#inputforjson').val(hidden_canvas.toDataURL('image/png'));
                     console.log(image2.width);
-                    if(image2.width > 0){
+                    image2.load(function(){
                       var face = new trackFace();
-                    }
+                    });
 
 
                     // $('#snap').each(function() {
