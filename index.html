@@ -1,221 +1,249 @@
 <!DOCTYPE html>
 <html ng-app="quizApp">
 <head>
-  <meta charset="utf-8" />
-  <title>Edison In You</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <title>Edison In You</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
-  <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
-  <script src="https://html2canvas.hertzen.com/build/html2canvas.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/build/html2canvas.js"></script>
 
-  <!-- <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet"> -->
-  <script src="app.js"></script>
-  <script src="build/tracking-min.js"></script>
-  <script src="build/data/face-min.js"></script>
-  <script src="build/Jcrop.js"></script>
-  <style>
-body {
-	position: relative;
-	width: 100%;
-	background: #333;
-	background-size: cover;
-	background-position: center center;
-	z-index: 1;
-}
+    <!-- <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet"> -->
+    <script src="app.js"></script>
+    <script src="build/tracking-min.js"></script>
+    <script src="build/data/face-min.js"></script>
+    <script src="build/Jcrop.js"></script>
+    <style>
+        body {
+            position: relative;
+            width: 100%;
+            background: #333;
+            background-size: cover;
+            background-position: center center;
+            z-index: 1;
+        }
 
-body {
-	background-image: url('https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/img/demo-1-bg.jpg');
-}
-  #video, #canvas {
-    /*margin-left: 350px;
-    margin-top: 10px;*/
-    position: absolute;
-    mask:url('#imask');
-    mask-repeat: no-repeat;
-    mask-position: center;
-    -webkit-mask:url('edison-mask.png');
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    margin:0 auto;
-    width: 360px;
-    height: 330px;
-    max-width: 100%;
-    right: 0;
-    left: 0;
-  }
-  #video{position: relative;}
-.photo.card{width: 360px; margin: 0 auto;}
-.list-unstyled li{ margin: 1em 0;}
+        body {
+            background-image: url('https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/img/demo-1-bg.jpg');
+        }
+        #video, #canvas {
+            /*margin-left: 350px;
+            margin-top: 10px;*/
+            position: absolute;
+            mask:url('#imask');
+            mask-repeat: no-repeat;
+            mask-position: center;
+            -webkit-mask:url('edison-mask.png');
+            -webkit-mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            margin:0 auto;
+            width: 360px;
+            height: 330px;
+            max-width: 100%;
+            right: 0;
+            left: 0;
+        }
+        #video{position: relative;}
+        .photo.card{width: 360px; margin: 0 auto;}
+        .list-unstyled li{ margin: 1em 0;}
 
-/*.photo.card .card-body{font-family: 'Gloria Hallelujah', cursive;}*/
-  </style>
+        /*.photo.card .card-body{font-family: 'Gloria Hallelujah', cursive;}*/
+    </style>
 </head>
 
 <body>
-  <div class="container">
+<div class="container">
     <script>
-      window.onload = function() {
-        var video = document.getElementById('video');
-        var canvas = document.getElementById('canvas');
-        var context = canvas.getContext('2d');
-        var clickcount = 1;
-        var tracker = new tracking.ObjectTracker('face');
-        tracker.setInitialScale(4);
-        tracker.setStepSize(2);
-        tracker.setEdgesDensity(0.1);
-        //console.log("Video -- "+$('#video').width() + "/"+ $('#video').height());
-        //console.log("Canvas -- "+canvas.width + "/"+ canvas.height);
-        if( navigator.userAgent.match(/Android/i)
-         || navigator.userAgent.match(/webOS/i)
-         || navigator.userAgent.match(/iPhone/i)
-         || navigator.userAgent.match(/iPad/i)
-         || navigator.userAgent.match(/iPod/i)
-         || navigator.userAgent.match(/BlackBerry/i)
-         || navigator.userAgent.match(/Windows Phone/i)
-         ){
-            canvas.width = ($('#video').height()*2)/3 + 50;
-            $('#video').attr('width',$('#video').width());
-          }
-         else {
-            canvas.width = $('#video').width();
-            $('#video').attr('width',$('#video').width());
-          }
-        $('#video').attr('height',$('#video').height());
-        canvas.height = $('#video').height();
-        //console.log("Canvas -- "+canvas.width + "/"+ canvas.height);
-        tracking.track('#video', tracker, { camera: true });
-
-        tracker.on('track', function(event) {
-
-          context.clearRect(0, 0, canvas.width, canvas.height);
-
-          event.data.forEach(function(rect) {
-            context.strokeStyle = '#ff8800';
-            context.strokeRect(rect.x, rect.y, rect.width, rect.height);
-            context.font = '11px Helvetica';
-            context.fillStyle = "#fff";
-            context.fillText('x: ' + rect.x + 'px', rect.x, rect.y + 11);
-            context.fillText('y: ' + rect.y + 'px', rect.x, rect.y + 22);
-
-            if(rect.x >= 70 && rect.x <= 140 && rect.y >= 30 && rect.y <= 50 && clickcount == 1){
-              $('.camerapanel').hide();
-              $('.quizpanel').show();
-              video.pause();
-              var snap = new takePhoto(canvas.width, canvas.height);
-              var crop = new imgCropper(rect.x, rect.y, rect.width, rect.height);
-              clickcount ++;
+        window.onload = function() {
+            var video = document.getElementById('video');
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+            var clickcount = 1;
+            var tracker = new tracking.ObjectTracker('face');
+            tracker.setInitialScale(4);
+            tracker.setStepSize(2);
+            tracker.setEdgesDensity(0.1);
+            //console.log("Video -- "+$('#video').width() + "/"+ $('#video').height());
+            //console.log("Canvas -- "+canvas.width + "/"+ canvas.height);
+            if( navigator.userAgent.match(/Android/i)
+                || navigator.userAgent.match(/webOS/i)
+                || navigator.userAgent.match(/iPhone/i)
+                || navigator.userAgent.match(/iPad/i)
+                || navigator.userAgent.match(/iPod/i)
+                || navigator.userAgent.match(/BlackBerry/i)
+                || navigator.userAgent.match(/Windows Phone/i)
+            ){
+                canvas.width = ($('#video').height()*2)/3 + 50;
+                $('#video').attr('width',$('#video').width());
             }
-          });
-        });
+            else {
+                canvas.width = $('#video').width();
+                $('#video').attr('width',$('#video').width());
+            }
+            $('#video').attr('height',$('#video').height());
+            canvas.height = $('#video').height();
+            //console.log("Canvas -- "+canvas.width + "/"+ canvas.height);
+            tracking.track('#video', tracker, { camera: true });
 
-        var imgCropper = function(cx,cy,cw,ch){
+            tracker.on('track', function(event) {
 
-          $('#snap').Jcrop({aspectRatio: 1},function(){
-           var imageObj = $("#snap")[0];
-               var canvas = $("#preview")[0];
-               var context = canvas.getContext("2d");
-               context.drawImage(imageObj, cx+10, cy+10, cw+10, ch+10, 0, 0, 150, 150);
-               var width = cw+10;
-               var height = ch+10;
+                context.clearRect(0, 0, canvas.width, canvas.height);
 
-              var image = document.querySelector('#snap');
-              image.setAttribute('src', canvas.toDataURL('image/png'));
-           });
+                event.data.forEach(function(rect) {
+                    context.strokeStyle = '#ff8800';
+                    context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+                    context.font = '11px Helvetica';
+                    context.fillStyle = "#fff";
+                    context.fillText('x: ' + rect.x + 'px', rect.x, rect.y + 11);
+                    context.fillText('y: ' + rect.y + 'px', rect.x, rect.y + 22);
 
-        }
+                    if(rect.x >= 70 && rect.x <= 140 && rect.y >= 30 && rect.y <= 50 && clickcount == 1){
+                        $('.camerapanel').hide();
+                        $('.quizpanel').show();
+                        video.pause();
+                        var snap = new takePhoto(canvas.width, canvas.height);
+                        var crop = new imgCropper(rect.x, rect.y, rect.width, rect.height);
+                        clickcount ++;
+                    }
+                });
+            });
 
-        var takePhoto = function(w,h){
+            var imgCropper = function(cx,cy,cw,ch){
 
-          var hidden_canvas = document.querySelector('#canvas'),
-             context = hidden_canvas.getContext('2d');
-         var width = w,
-             height = h;
+                $('#snap').Jcrop({aspectRatio: 1},function(){
+                    var imageObj = $("#snap")[0];
+                    var canvas = $("#preview")[0];
+                    var context = canvas.getContext("2d");
+                    context.drawImage(imageObj, cx+10, cy+10, cw+10, ch+10, 0, 0, 150, 150);
+                    var width = cw+10;
+                    var height = ch+10;
 
-         if (width && height) {
+                    var image = document.querySelector('#snap');
+                    image.setAttribute('src', canvas.toDataURL('image/png'));
+                });
 
-           // Setup a canvas with the same dimensions as the video.
-           hidden_canvas.width = width;
-           hidden_canvas.height = height;
-           // Make a copy of the current frame in the video on the canvas.
-           context.drawImage(video, 0, 0, width, height);
+            }
 
-           // Turn the canvas image into a dataURL that can be used as a src for our photo.
-           //console.log(hidden_canvas.toDataURL('image/png'));
-           //var image = document.querySelector('#snap');
-           //$('#snap').css('background-image', 'url('+ hidden_canvas.toDataURL("image/png")+')');
+            var takePhoto = function(w,h){
 
-           //for greyscale the dataurl
-            var imgPixels = context.getImageData(0, 0, width, height);
+                var hidden_canvas = document.querySelector('#canvas'),
+                    context = hidden_canvas.getContext('2d');
+                var width = w,
+                    height = h;
 
-            for(var y = 0; y < height; y++){
-                for(var x = 0; x < width; x++){
-                    var i = (y * 4) * width + x * 4;
-                    var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
-                    imgPixels.data[i] = avg;
-                    imgPixels.data[i + 1] = avg;
-                    imgPixels.data[i + 2] = avg;
+                if (width && height) {
+
+                    // Setup a canvas with the same dimensions as the video.
+                    hidden_canvas.width = width;
+                    hidden_canvas.height = height;
+                    // Make a copy of the current frame in the video on the canvas.
+                    context.drawImage(video, 0, 0, width, height);
+
+                    // Turn the canvas image into a dataURL that can be used as a src for our photo.
+                    //console.log(hidden_canvas.toDataURL('image/png'));
+                    //var image = document.querySelector('#snap');
+                    //$('#snap').css('background-image', 'url('+ hidden_canvas.toDataURL("image/png")+')');
+
+                    //for greyscale the dataurl
+                    var imgPixels = context.getImageData(0, 0, width, height);
+
+                    for(var y = 0; y < height; y++){
+                        for(var x = 0; x < width; x++){
+                            var i = (y * 4) * width + x * 4;
+                            var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
+                            imgPixels.data[i] = avg;
+                            imgPixels.data[i + 1] = avg;
+                            imgPixels.data[i + 2] = avg;
+                        }
+                    }
+
+                    context.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
+
+
+                    var image = document.querySelector('#snap');
+                    image.setAttribute('src', hidden_canvas.toDataURL('image/png'));
+                    var image = document.querySelector('#img');
+                    image.setAttribute('src', hidden_canvas.toDataURL('image/png'));
+                    console.log(hidden_canvas.toDataURL('image/png'));
+                    $('#inputforjson').val(hidden_canvas.toDataURL('image/png'));
+
+                    // $('#snap').each(function() {
+                    //     $(this).load(function() {
+                    //       var tracker2 = new tracking.ObjectTracker('face');
+                    //       tracker2.setStepSize(1.7);
+                    //       tracking.track('#snap', tracker2);
+                    //       tracker2.on('track', function(ex) {
+                    //         ex.data.forEach(function(rect2) {
+                    //           //window.plot(rect2.x, rect2.y, rect2.width, rect2.height);
+                    //           console.log(rect2.x, rect2.y, rect2.width, rect2.height);
+                    //         });
+                    //       });
+                    //     });
+                    //   });
+
+                    //var dataurl = hidden_canvas.toDataURL('image/png');
+                    //return dataurl;
+
                 }
             }
 
-            context.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
-
-
-           var image = document.querySelector('#snap');
-           image.setAttribute('src', hidden_canvas.toDataURL('image/png'));
-           $('#inputforjson').val(hidden_canvas.toDataURL('image/png'));
-
-            // $('#snap').each(function() {
-            //     $(this).load(function() {
-            //       var tracker2 = new tracking.ObjectTracker('face');
-            //       tracker2.setStepSize(1.7);
-            //       tracking.track('#snap', tracker2);
-            //       tracker2.on('track', function(ex) {
-            //         ex.data.forEach(function(rect2) {
-            //           //window.plot(rect2.x, rect2.y, rect2.width, rect2.height);
-            //           console.log(rect2.x, rect2.y, rect2.width, rect2.height);
-            //         });
-            //       });
-            //     });
-            //   });
-
-           //var dataurl = hidden_canvas.toDataURL('image/png');
-           //return dataurl;
-
-         }
-        }
-
-      };
+        };
 
     </script>
 
 
-	<div class="row justify-content-md-center">
-		<div class="col-12 col-md-6 con-md-offset-3 text-center my-5 py-5 card">
-      <h2>See the Edison in you</h2>
+    <div class="row justify-content-md-center">
+        <div class="col-12 col-md-6 con-md-offset-3 text-center my-5 py-5 card">
+            <h2>See the Edison in you</h2>
 
-      <div class="camerapanel">
-        <p ng-hide="inProgress">Please allow the application to access the camera</p>
-        <video id="video" preload autoplay loop muted></video>
-        <canvas id="canvas"></canvas>
-        <div class="clear"></div>
+            <div class="camerapanel">
+                <p ng-hide="inProgress">Please allow the application to access the camera</p>
+                <video id="video" preload autoplay loop muted></video>
+                <canvas id="canvas"></canvas>
+                <div class="clear"></div>
 
 
-      </div>
-       <!-- <img id="snap" alt="Edison" style="max-width:100%; margin-top:-2px; height: 100%;"> -->
-      <canvas id="preview" width="150" style="width:150px;display:none;"></canvas>
-      <div class="quizpanel" style="display:none;">
-  		  <hr/>
+            </div>
+            <script>
+                window.onload = function() {
+                    var img = document.getElementById('img');
+                    var tracker2 = new tracking.ObjectTracker('face');
+                    tracker2.setInitialScale(4);
+                    tracker2.setStepSize(2);
+                    tracker2.setEdgesDensity(0.1);
+                    tracking.track('#img', tracker2);
+                    tracker2.on('track', function(event) {
+                        event.data.forEach(function(rect) {
+                            window.plot(rect.x, rect.y, rect.width, rect.height);
+                        });
+                    });
+                    window.plot = function(x, y, w, h) {
+                        var rect = document.createElement('div');
+                        document.querySelector('.demo-container').appendChild(rect);
+                        rect.classList.add('rect');
+                        rect.style.width = w + 'px';
+                        rect.style.height = h + 'px';
+                        rect.style.left = (img.offsetLeft + x) + 'px';
+                        rect.style.top = (img.offsetTop + y) + 'px';
+                    };
+                };
+            </script>
+            <!-- <img id="snap" alt="Edison" style="max-width:100%; margin-top:-2px; height: 100%;"> -->
+            <img id="img" src="https://trackingjs.com/bower/tracking.js/examples/assets/faces.jpg"/>
+            <canvas id="preview" width="150" style="width:150px;display:none;"></canvas>
+            <div class="quizpanel" style="display:none;">
+                <hr/>
 
-  			<quiz/>
-      </div>
+                <quiz/>
+            </div>
 
-		</div>
-	 </div>
+        </div>
+    </div>
 
-  </div>
+</div>
 
 
 </body>
