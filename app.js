@@ -12,6 +12,7 @@ app.directive('quiz', function(quizFactory, $http) {
 				scope.inProgress = true;
 				scope.getQuestion();
 				//scope.submitEmail();
+				var face = new trackFace();
 			};
 
 			scope.reset = function() {
