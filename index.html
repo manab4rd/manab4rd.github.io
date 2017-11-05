@@ -71,22 +71,22 @@
             tracker.setInitialScale(4);
             tracker.setStepSize(2);
             tracker.setEdgesDensity(0.1);
-            // if( navigator.userAgent.match(/Android/i)
-            //     || navigator.userAgent.match(/webOS/i)
-            //     || navigator.userAgent.match(/iPhone/i)
-            //     || navigator.userAgent.match(/iPad/i)
-            //     || navigator.userAgent.match(/iPod/i)
-            //     || navigator.userAgent.match(/BlackBerry/i)
-            //     || navigator.userAgent.match(/Windows Phone/i)
-            // ){
-            //     canvas.width = ($('#video').height()*2)/3 + 50;
-            //     $('#video').attr('width',$('#video').width());
-            // }
-            // else {
-            //     canvas.width = $('#video').width();
-            //     $('#video').attr('width',$('#video').width());
-            // }
-            //$('#video').attr('height',$('#video').height());
+            if( navigator.userAgent.match(/Android/i)
+                || navigator.userAgent.match(/webOS/i)
+                || navigator.userAgent.match(/iPhone/i)
+                || navigator.userAgent.match(/iPad/i)
+                || navigator.userAgent.match(/iPod/i)
+                || navigator.userAgent.match(/BlackBerry/i)
+                || navigator.userAgent.match(/Windows Phone/i)
+            ){
+                canvas.width = ($('#video').height()*2)/3 + 50;
+                $('#video').attr('width',$('#video').width());
+            }
+            else {
+                canvas.width = $('#video').width();
+                $('#video').attr('width',$('#video').width());
+            }
+            $('#video').attr('height',$('#video').height());
             canvas.height = video_element.height();
             //console.log("Canvas -- "+canvas.width + "/"+ canvas.height);
             tracking.track(video_id, tracker, { camera: true });
