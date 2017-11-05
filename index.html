@@ -41,7 +41,6 @@
             -webkit-mask-position: center;
             margin:0 auto;
             width: 360px;
-            height: 330px;
             max-width: 100%;
             right: 0;
             left: 0;
@@ -63,7 +62,8 @@
 <div class="container">
     <script>
         window.onload = function() {
-            var video = document.getElementById('video');
+            var video_id = '#video';
+            var video_element = $(video_id);
             var canvas = document.getElementById('canvas');
             var context = canvas.getContext('2d');
             var clickcount = 1;
@@ -71,27 +71,25 @@
             tracker.setInitialScale(4);
             tracker.setStepSize(2);
             tracker.setEdgesDensity(0.1);
-            //console.log("Video -- "+$('#video').width() + "/"+ $('#video').height());
+            // if( navigator.userAgent.match(/Android/i)
+            //     || navigator.userAgent.match(/webOS/i)
+            //     || navigator.userAgent.match(/iPhone/i)
+            //     || navigator.userAgent.match(/iPad/i)
+            //     || navigator.userAgent.match(/iPod/i)
+            //     || navigator.userAgent.match(/BlackBerry/i)
+            //     || navigator.userAgent.match(/Windows Phone/i)
+            // ){
+            //     canvas.width = ($('#video').height()*2)/3 + 50;
+            //     $('#video').attr('width',$('#video').width());
+            // }
+            // else {
+            //     canvas.width = $('#video').width();
+            //     $('#video').attr('width',$('#video').width());
+            // }
+            //$('#video').attr('height',$('#video').height());
+            canvas.height = video_element.height();
             //console.log("Canvas -- "+canvas.width + "/"+ canvas.height);
-            if( navigator.userAgent.match(/Android/i)
-                || navigator.userAgent.match(/webOS/i)
-                || navigator.userAgent.match(/iPhone/i)
-                || navigator.userAgent.match(/iPad/i)
-                || navigator.userAgent.match(/iPod/i)
-                || navigator.userAgent.match(/BlackBerry/i)
-                || navigator.userAgent.match(/Windows Phone/i)
-            ){
-                canvas.width = ($('#video').height()*2)/3 + 50;
-                $('#video').attr('width',$('#video').width());
-            }
-            else {
-                canvas.width = $('#video').width();
-                $('#video').attr('width',$('#video').width());
-            }
-            $('#video').attr('height',$('#video').height());
-            canvas.height = $('#video').height();
-            //console.log("Canvas -- "+canvas.width + "/"+ canvas.height);
-            tracking.track('#video', tracker, { camera: true });
+            tracking.track(video_id, tracker, { camera: true });
 
             tracker.on('track', function(event) {
 
@@ -105,33 +103,33 @@
                     context.fillText('x: ' + rect.x + 'px', rect.x, rect.y + 11);
                     context.fillText('y: ' + rect.y + 'px', rect.x, rect.y + 22);
 
-                    if(rect.x >= 70 && rect.x <= 140 && rect.y >= 30 && rect.y <= 50 && clickcount == 1){
+                    if(rect.x >= 60 && rect.x <= 140 && rect.y >= 40 && rect.y <= 100 && clickcount == 1){
                         $('.camerapanel').hide();
                         $('.quizpanel').show();
                         video.pause();
                         var snap = new takePhoto(canvas.width, canvas.height);
-                        var crop = new imgCropper(rect.x, rect.y, rect.width, rect.height);
+                        //var crop = new imgCropper(rect.x, rect.y, rect.width, rect.height);
 
                         clickcount ++;
                     }
                 });
             });
 
-            var imgCropper = function(cx,cy,cw,ch){
-
-                $('#snap').Jcrop({aspectRatio: 1},function(){
-                    var imageObj = $("#snap")[0];
-                    var canvas = $("#preview")[0];
-                    var context = canvas.getContext("2d");
-                    context.drawImage(imageObj, cx+10, cy+10, cw+10, ch+10, 0, 0, 150, 150);
-                    var width = cw+10;
-                    var height = ch+10;
-
-                    var image = document.querySelector('#snap');
-                    image.setAttribute('src', canvas.toDataURL('image/png'));
-                });
-
-            }
+            // var imgCropper = function(cx,cy,cw,ch){
+            //
+            //     $('#snap').Jcrop({aspectRatio: 1},function(){
+            //         var imageObj = $("#snap")[0];
+            //         var canvas = $("#preview")[0];
+            //         var context = canvas.getContext("2d");
+            //         context.drawImage(imageObj, cx+10, cy+10, cw+10, ch+10, 0, 0, 150, 150);
+            //         var width = cw+10;
+            //         var height = ch+10;
+            //
+            //         var image = document.querySelector('#snap');
+            //         image.setAttribute('src', canvas.toDataURL('image/png'));
+            //     });
+            //
+            // }
 
             var takePhoto = function(w,h){
 
@@ -173,12 +171,13 @@
                     image.setAttribute('src', hidden_canvas.toDataURL('image/png'));
                     var image2 = document.querySelector('#img');
                     image2.setAttribute('src', hidden_canvas.toDataURL('image/png'));
-                    console.log(hidden_canvas.toDataURL('image/png'));
+                    // console.log(hidden_canvas.toDataURL('image/png'));
                     $('#inputforjson').val(hidden_canvas.toDataURL('image/png'));
-                    console.log(image2.width);
-                    image2.load(function(){
-                      var face = new trackFace();
-                    });
+                    $('video').remove();
+                    // console.log(image2.width);
+                    // image2.load(function(){
+                    //   var face = new trackFace();
+                    // });
 
 
                     // $('#snap').each(function() {
@@ -227,9 +226,12 @@
                     tracker2.setEdgesDensity(0.1);
                     tracking.track('#img', tracker2);
                     tracker2.on('track', function(event) {
-                        event.data.forEach(function(rect) {
-                            window.plot(rect.x, rect.y, rect.width, rect.height);
+                        event.data.forEach(function(rect2) {
+                            window.plot(rect2.x, rect2.y, rect2.width, rect2.height);
+                            //var trackValues = [rect.x, rect.y, rect.width, rect.height];
+                            var crop2 = new imgCropper(rect2.x, rect2.y, rect2.width, rect2.height);
                         });
+
                     });
                     window.plot = function(x, y, w, h) {
                         var rect = document.createElement('div');
@@ -241,12 +243,27 @@
                         rect.style.top = (img.offsetTop + y) + 'px';
                     };
                 };
+                var imgCropper = function(cx,cy,cw,ch){
+
+                    $('#snap').Jcrop({aspectRatio: 1},function(){
+                        var imageObj = $("#snap")[0];
+                        var canvas = $("#preview")[0];
+                        var context = canvas.getContext("2d");
+                        context.drawImage(imageObj, cx+10, cy+10, cw+10, ch+10, 0, 0, 150, 150);
+                        var width = cw+10;
+                        var height = ch+10;
+
+                        var image = document.querySelector('#snap');
+                        image.setAttribute('src', canvas.toDataURL('image/png'));
+                    });
+
+                }
             </script>
             <!-- <img id="snap" alt="Edison" style="max-width:100%; margin-top:-2px; height: 100%;"> -->
             <div class="demo-container">
               <img id="img"/>
             </div>
-            <canvas id="preview" width="150" style="width:150px;display:none;"></canvas>
+            <canvas id="preview" width="150" style="width:150px;"></canvas>
             <div class="quizpanel" style="display:none;">
                 <hr/>
 
