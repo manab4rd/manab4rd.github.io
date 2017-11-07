@@ -88,7 +88,7 @@ app.factory('quizFactory', function() {
 	var questions = [
 		{
 			question: "What you can win in Idea Contest?",
-			options: ["Ghanta(Bell)", "$3000", "Trip to Bangkok"],
+			options: ["Free trip to Antartica", "$3000", "Trip to Bangkok"],
 			answer: 1
 		},
 		{
